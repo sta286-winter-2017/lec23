@@ -1,0 +1,115 @@
+---
+title: "STA286 Lecture 23"
+author: "Neil Montgomery"
+date: "Last edited: `r format(Sys.time(), '%Y-%m-%d %H:%M')`"
+output: 
+  beamer_presentation:
+    keep_tex: TRUE
+    incremental: TRUE
+    df_print: tibble
+    fig_caption: FALSE
+classoption: aspectratio=169
+header-includes:
+- \renewcommand{\le}{\leqslant}
+- \renewcommand{\ge}{\geqslant}
+- \renewcommand\P[1]{P{\left(#1\right)}}
+- \newcommand\F[1]{F_{\tiny{#1}}}
+- \newcommand\f[1]{f_{\tiny{#1}}}
+- \newcommand\p[1]{p_{\tiny{#1}}}
+- \newcommand\M[1]{M_{\tiny{#1}}}
+- \newcommand\V[1]{\text{Var}\!\left(#1\right)}
+- \newcommand\E[1]{E\!\left(#1\right)}
+- \newcommand\N[1]{N_{\tiny{#1}}}
+- \newcommand\ol{\overline}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE,
+                      dev = 'pdf')
+options(tibble.width=70)
+```
+
+# roadmap
+
+## probability/statistics
+
+I said probability was "done", but it really wasn't.
+
+In statistics we use a sample to make statements about what is unknown about an underlying distribution.
+
+Then we did more probability - but not for the purpose of modeling actual random processes in the wild.
+
+The purpose of the additional probability was to determine some properties of functions of samples---with a focus on the properties of $\ol{X}$
+
+Now we are actually going to do statistics.
+
+# parameter estimation
+
+## point estimation
+
+We will treat population parameters as constants (as opposed to \textit{Bayesian statistics}). 
+
+The goal is to use a statistic $\hat\theta$, i.e. a function of a sample, to estimate the value of a parameter $\theta$, which could be a vector. This statistic is called a "point estimator".
+
+\pause e.g. Sample is from $N(\mu, 3)$. We want to estimate $\mu$.
+
+\pause e.g. Sample is from Bernoulli$(p)$. We want to estimate $p$.
+
+\pause e.g. Sample is from $N(\mu, \sigma)$. We want to estimate $(\mu, \sigma)$. 
+
+\pause Open questions about point estimators:
+
+* what desirable properties should they have?
+
+* how do I know which one to use? (To be addressed later.)
+
+## bias and variance
+
+We would like $\hat\theta$ to be \textit{unbiased} ("for $\theta$"):
+$$\E{\hat\theta} = \theta$$
+
+\pause For example, $\ol{X}$ is always unbiased for the mean $\mu$ of any population, because we showed earlier that:
+$$\E{\ol{X}} = \mu$$
+
+\pause There can be lots of unbiased estimators. How to choose the best one? Take the one with the smallest variance.
+
+\pause For example, if you have a sample $X_1,\ldots,X_n$ from a $N(\mu, \sigma)$ distribution, then $\ol{X}$ is unbiased. But so is just taking $X_1$, say, because:
+$$E(X_1) = \mu$$
+
+\pause But $\V{\ol{X}} = \sigma^2/n$ which is smaller than $\V{X_1} = \sigma^2$.
+
+## bias and variance
+
+That was a silly example. 
+
+A less silly exampe is that is possible to show that the sample median $\tilde{X}$ is also unbiased for $\mu$ when the sample is from a normal population. 
+
+\pause But $\V{\ol{X}} < \V{\tilde{X}}$ so $\ol{X}$ is preferred.
+
+\pause \textbf{Fact:} when the population is normal, $\ol{X}$ is the unbiased estimator with the smallest variance.
+
+\pause Another desirable property (that $\ol{X}$ has, for example) is \textit{consistency}, which means the variance tends to 0 as $n\to\infty$.
+
+## another unbiased estimator
+
+Population: $N(\mu, \sigma)$. Sample: $X_1,\ldots,X_n$. 
+
+Paramater to estimate: $\sigma^2$.
+
+\pause Since:
+$$\frac{n-1}{\sigma^2}S^2 \sim \chi^2_{n-1}$$
+and the expected value of a Gamma$(\alpha, \lambda)$ is $\frac{\alpha}{\lambda}$, we get:
+
+\pause 
+
+$$\E{\frac{n-1}{\sigma^2}S^2} = n - 1$$
+
+\pause and therefore $\E{S^2} = \sigma^2$.
+
+\pause This explains the embarassing $n-1$ in the denominator of $S^2$.
+
+## $Exp(\lambda)$
+
+How to estimate the rate parameter $\lambda$?
+
+
