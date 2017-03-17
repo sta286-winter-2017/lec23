@@ -29,6 +29,7 @@ knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE,
 options(tibble.width=70)
 ```
 
+
 # roadmap
 
 ## probability/statistics
@@ -84,7 +85,9 @@ That was a silly example.
 
 A less silly exampe is that is possible to show that the sample median $\tilde{X}$ is also unbiased for $\mu$ when the sample is from a normal population. 
 
-\pause But $\V{\ol{X}} < \V{\tilde{X}}$ so $\ol{X}$ is preferred.
+\pause It turns out (FIXED - the problem was the 4 should have been 2) $\V{\tilde{X}} \approx \frac{\pi\sigma^2}{2n} \approx 1.57\V{\ol{X}}$, in the $N(\mu,\sigma)$ case.
+
+\pause So $\ol{X}$ is preferred.
 
 \pause \textbf{Fact:} when the population is normal, $\ol{X}$ is the unbiased estimator with the smallest variance.
 
